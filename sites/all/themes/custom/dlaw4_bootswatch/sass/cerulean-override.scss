@@ -1,0 +1,32 @@
+$linkcolor: darken(#006c9a, 5%);
+a{
+	color: $linkcolor;
+}
+.well{
+  background: #f9f9f9;
+}
+.dlaw-social-media-links-wrapper{
+  a{
+    color: #fff;
+  }
+}
+#toolbar-chevron{
+  color: #fff;
+}
+#footer-region{
+  a{
+    color: #fff;
+  }
+}
+
+#footer-region{
+	color: #fff;
+}
+
+#simple-toc a:hover, #simple-toc a:active:hover, #simple-toc a:visited:hover{
+  // color: $linkcolor;
+}
+
+a:visited{
+  // color: darken($linkcolor, 2%) !important;
+}

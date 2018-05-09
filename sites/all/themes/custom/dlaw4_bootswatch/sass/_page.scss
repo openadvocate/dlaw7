@@ -1,0 +1,20 @@
+// Hide all except content in kiosk mode
+body.kiosk {
+  #admin-menu-wrapper,
+  .oarc-bottom-left,
+  #toolbar-handler,
+  & > header,
+  #block-system-main .panel-panel.col-sm-4,
+  .left-sidebar,
+  #bottom-region,
+  #footer-region,
+  .pane-rate-widget,
+  #livechat-compact-container {
+    display: none;
+  }
+
+  #block-system-main .col-sm-8.left,
+  #block-system-main .col-sm-8.right {
+    width: 100%;
+  }
+}
