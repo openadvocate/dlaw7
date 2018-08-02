@@ -126,6 +126,16 @@ Drupal.behaviors.dlawCustomFieldsetSummaries = {
       return library == '' ? Drupal.t('No topics') : library;
     });
 
+    // Summary for Region
+    $('fieldset#edit-group_region', context).drupalSetSummary(function (context) {
+      var region;
+
+      region = $('select option:selected', context).map(function () {
+        return $(this).text();
+      }).toArray().join('<br>');
+
+      return region == '' ? Drupal.t('No regions') : region;
+    });
 
     // Summary for News
     $('fieldset#edit-group_news', context).drupalSetSummary(function (context) {

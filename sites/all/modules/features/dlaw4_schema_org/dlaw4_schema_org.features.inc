@@ -106,6 +106,10 @@ function dlaw4_schema_org_rdf_default_mappings() {
         0 => 'schema:email',
       ),
     ),
+    'field_region' => array(
+      'predicates' => array(),
+      'type' => 'rel',
+    ),
   );
 
   // Exported RDF mapping: page
@@ -180,6 +184,13 @@ function dlaw4_schema_org_rdf_default_mappings() {
     ),
     'field_date' => array(
       'predicates' => array(),
+    ),
+    'field_location' => array(
+      'predicates' => array(),
+    ),
+    'field_region' => array(
+      'predicates' => array(),
+      'type' => 'rel',
     ),
   );
 

@@ -69,26 +69,26 @@ function twitter_feed_settings_form_submit($form, $form_state) {
 }
 
 /**
- *  Implements hook_theme().
+ *	Implements hook_theme().
  */
 function twitter_feed_theme($existing, $type, $theme, $path) {
-  return array(
-    'twitter_feed_block' => array(
-      'variables' => array('classes_array' => array('twitter_feed_block', 'block'),
-        'attributes_array' => array(),
-        'title_attributes_array' => array(),
-        'content_attributes_array' => array(),),
-      'path' => $path . '/templates',
-      'template' => 'twitter_feed_block',
-      'preprocess functions' => array(
-        'twitter_feed_preprocess_block',
-      ),
-    ),
-  );
+	return array(
+		'twitter_feed_block' => array(
+			'variables' => array('classes_array' => array('twitter_feed_block', 'block'),
+			  'attributes_array' => array(),
+			  'title_attributes_array' => array(),
+			  'content_attributes_array' => array(),),
+			'path' => $path . '/templates',
+			'template' => 'twitter_feed_block',
+			'preprocess functions' => array(
+				'twitter_feed_preprocess_block',
+			),
+		),
+	);
 }
 
 /**
- *  Preprocess for twitter_feed.tpl.php
+ *	Preprocess for twitter_feed.tpl.php
  */
 function twitter_feed_preprocess_block(&$vars) {
   if ($vars['theme_hook_original'] == 'twitter_feed_block') {
@@ -106,28 +106,28 @@ function twitter_feed_preprocess_block(&$vars) {
 }
 
 /**
- *  Implements hook_block_info().
+ *	Implements hook_block_info().
  */
 function twitter_feed_block_info() {
-  $blocks['twitter_feed'] = array(
-    'info' => t('Twitter Feed'),
-    'cache' => DRUPAL_CACHE_GLOBAL,
-  );
+	$blocks['twitter_feed'] = array(
+		'info' => t('Twitter Feed'),
+		'cache' => DRUPAL_CACHE_GLOBAL,
+	);
 
-  return $blocks;
+	return $blocks;
 }
 
 /**
- *  Implements hook_block_view().
+ *	Implements hook_block_view().
  */
 function twitter_feed_block_view($delta = '') {
-  $block = array();
-  if ($delta == 'twitter_feed') {
-    $block['subject'] = 'Twitter Feed';
-    $block['content'] = theme('twitter_feed_block', array());
-  }
+	$block = array();
+	if ($delta == 'twitter_feed') {
+		$block['subject'] = 'Twitter Feed';
+		$block['content'] = theme('twitter_feed_block', array());
+	}
 
-  return $block;
+	return $block;
 }
 
 /**
@@ -227,7 +227,7 @@ function _dlaw_twitter_post_time_ago($timestamp) {
 
   if ($timestamp > 1) {
     $difference = time() - $timestamp;
-    $periods = array('second', 'minute', 'hour', 'day', 'week', 'month', 'years', 'decade');
+    $periods = array('second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade');
     $lengths = array('60', '60', '24', '7', '4.35', '12', '10');
 
     for ($j = 0; $difference >= $lengths[$j] && $j < 7; $j++) {

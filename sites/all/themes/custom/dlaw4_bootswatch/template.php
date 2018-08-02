@@ -130,7 +130,7 @@ function dlaw4_bootswatch_preprocess_page(&$vars) {
   }
   $vars['dlaw4_col_class'] = $dlaw4_col_class;
 
-  if ((arg(0) == 'topic') and is_numeric(arg(1))){
+  if ((arg(0) == 'topics') and is_numeric(arg(1))){
     $vars['library_listing'] = true;
   }
 

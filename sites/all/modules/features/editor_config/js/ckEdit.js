@@ -11,7 +11,7 @@
             advTab =  dialogDefinition.getContents( 'advanced' );
             advCSSClasses = advTab.get( 'advCSSClasses' );
             advTab.hidden=true;
-        
+
         infoTab.add( {
           type: 'select',
           label: 'Display link as a button',
@@ -34,8 +34,8 @@
         advCSSClasses.commit = function( data ) {
             orgAdvCSSClassesCommit.apply( this, arguments );
 
-            if ( data.buttonType && data.adv.advCSSClasses.indexOf( data.buttonType ) == -1 )
-                data.adv.advCSSClasses += ' ' + data.buttonType;
+            if ( data.buttonType && data.advanced.advCSSClasses.indexOf( data.buttonType ) == -1 )
+                data.advanced.advCSSClasses += ' ' + data.buttonType;
 
         };
       }

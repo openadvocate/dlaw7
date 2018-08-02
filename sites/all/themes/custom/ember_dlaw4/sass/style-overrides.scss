@@ -702,6 +702,57 @@ select.ui-datepicker-year {
   }
 }
 
+.vertical-tabs-panes {
+  .form-item-unpublish-on > label {
+    display: block;
+  }
+}
+
+// Category icon list on taxonomy term (category) edit page.
+.category-icon-list {
+  margin: 20px 0 30px;
+
+  button {
+    background-color: #f6f6f6;
+    margin-right: 4px;
+    margin-bottom: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    img {
+      margin: 6px auto 3px;
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+    }
+  }
+}
+
+#edit-field-category-icon {
+  @keyframes yellowfade {
+    from {
+      background: yellow;
+    }
+    to {
+      background: transparent;
+    }
+  }
+
+  input.yellow-fade {
+    animation: yellowfade 1s;
+  }
+}
+
+.vertical-tabs-pane {
+  #edit-field-region-und, #edit-field-zipcode-und {
+    min-height: 500px;
+  }
+}
+
 @media (min-width: 1401px ) {
   #dashboard div.block ul.ga_site_usage_list{
     padding: 0 0%;

@@ -1,7 +1,7 @@
 name = Content Management
 core = 7.x
 package = Features
-version = 7.x-0.5
+version = 7.x-0.6
 project = content_management
 dependencies[] = views
 features[ctools][] = views:views_default:3.0

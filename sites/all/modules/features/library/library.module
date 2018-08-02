@@ -14,7 +14,7 @@ function library_menu() {
     'title' => 'Library',
     'page callback' => '_library_redirect_to_topics',
     'page arguments' => array(1),
-    'access arguments' => array('access content'), 
+    'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
 
@@ -22,7 +22,7 @@ function library_menu() {
     'title' => 'Topics',
     'page callback' => '_library_tid_callback',
     'page arguments' => array(1),
-    'access arguments' => array('access content'), 
+    'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
 
@@ -56,8 +56,10 @@ function library_block_configure($delta = '') {
       '#title' => t('Topics view'),
       '#default_value' => variable_get('library_block_view', 'expanded'),
       '#options' => array(
-        'expanded' => 'Expanded',
         'compact' => 'Compact',
+        'expanded' => 'Expanded',
+        'compact_icon' => 'Compact with icon',
+        'expanded_icon' => 'Expanded with icon',
       ),
     );
   }
@@ -81,16 +83,22 @@ function library_block_view($delta = '') {
   $block = array();
 
   if ($delta == 'library') {
-    $block_view = variable_get('library_block_view', 'expanded');
+    if (arg(0) == 'topics') {
+      $block_view = 'expanded_icon';
+    }
+    else {
+      $block_view = variable_get('library_block_view', 'expanded');
+    }
+
     $voc  = taxonomy_vocabulary_machine_name_load('category');
-    $tree = taxonomy_get_tree($voc->vid, 0, 1);
+    $tree = taxonomy_get_tree($voc->vid, 0, 1, TRUE);
     $list = array();
 
     $class_mod = 'btn-sm';
     if (arg(0) == 'topics') {
       $class_mod = is_numeric(arg(1)) ? '' : 'btn-lg';
     }
-    elseif ($block_view == 'expanded') {
+    elseif (in_array($block_view, array('expanded', 'expanded_icon'))) {
       $class_mod = 'btn-lg';
     }
 
@@ -98,14 +106,27 @@ function library_block_view($delta = '') {
       // Show only term that have contents under them.
       if (library_get_node_count($term->tid)) {
         $children = '';
-        if ($block_view == 'expanded') {
+        if (in_array($block_view, array('expanded', 'expanded_icon'))) {
           if ($children = library_get_children_terms($term->tid)) {
             $children = ' <small>' . $children . '</small>';
           }
         }
 
+        $icon = '';
+        if ($block_view == 'expanded_icon') {
+          if (!empty($term->field_category_icon[LANGUAGE_NONE][0]['value'])) {
+            $url = $term->field_category_icon[LANGUAGE_NONE][0]['value'];
+            $icon = '<img src="' . $url . '" alt="">';
+
+          }
+        }
+        elseif ($block_view == 'compact_icon') {
+          $url = $term->field_category_icon[LANGUAGE_NONE][0]['value'];
+            $icon = '<img src="' . $url . '" alt="">';
+        }
+
         $list[] = array(
-          'data' => l($term->name . $children,
+          'data' => l($icon . $term->name . $children,
             "topics/$term->tid/" . library_cleanstring($term->name),
             array(
               'html' => TRUE,
@@ -119,9 +140,11 @@ function library_block_view($delta = '') {
       }
     }
 
+    list($block_view_class, ) = explode('_', $block_view);
+
     $block['content'] = theme('item_list', array(
       'items' => $list,
-      'attributes' => array('class' => array("library-block-{$block_view}"))
+      'attributes' => array('class' => array("library-block-{$block_view_class}"))
     ));
     $block['subject'] = 'Topics';
 
@@ -194,8 +217,14 @@ function _library_tid_callback($tid) {
 
   $parent_term = taxonomy_term_load($tid);
 
-  drupal_set_title($parent_term->name);
-  
+  $icon = '';
+  if (!empty($parent_term->field_category_icon[LANGUAGE_NONE][0]['value'])) {
+    $url = $parent_term->field_category_icon[LANGUAGE_NONE][0]['value'];
+    $icon = '<img src="' . $url . '" class="category-icon" alt=""> ';
+  }
+
+  drupal_set_title($icon . $parent_term->name, PASS_THROUGH);
+
   // $vid = _library_get_vid();
   // $terms_tree = taxonomy_get_tree($vid, arg(1), 1);
 
@@ -270,7 +299,7 @@ function library_theme($existing, $type, $theme, $path) {
   return array(
     'library_page' => array(
       'variables' => array('classes_array' => array('library_page', 'block'), 'tid' => NULL, 'terms' => NULL,
-        'attributes_array' => array(), 
+        'attributes_array' => array(),
         'title_attributes_array' => array(),
         'content_attributes_array' => array(),),
       'path' => $path . '/templates',
@@ -281,7 +310,7 @@ function library_theme($existing, $type, $theme, $path) {
     ),
     'library_related_nodes' => array(
       'variables' => array('classes_array' => array('library_related_nodes', 'block'), 'tids' => NULL,
-        'attributes_array' => array(), 
+        'attributes_array' => array(),
         'title_attributes_array' => array(),
         'content_attributes_array' => array(),),
       'path' => $path . '/templates',
@@ -292,7 +321,7 @@ function library_theme($existing, $type, $theme, $path) {
     ),
     'library_breadcrumb' => array(
       'variables' => array('classes_array' => array('library_breadcrumb', 'block'), 'parent_tid' => NULL,
-        'attributes_array' => array(), 
+        'attributes_array' => array(),
         'title_attributes_array' => array(),
         'content_attributes_array' => array(),),
       'path' => $path . '/templates',
@@ -319,7 +348,7 @@ function library_preprocess_breadcrumb(&$vars) {
  *  Preprocess for library_page.tpl.php
  */
 function library_preprocess_page(&$vars) {
-  
+
   //  Remove button styles if in bottom region
   if(!empty($vars['page']['footer']['library_library'])){
     $toReplace = array('btn ', ' btn-default', ' btn-sm');
@@ -344,7 +373,9 @@ function library_preprocess_page(&$vars) {
     //   $view->init_display();
     //   $view->pre_execute();
     //   $view->execute();
-    // } 
+    // }
+    $term = taxonomy_term_load($tid);
+    $vars['term_description'] = $term->description;
   }
 }
 
@@ -370,21 +401,21 @@ function _dlaw_dashboard_get_nodes_by_tid($tids) {
 
   $nids = array();
   $nodes = array();
-  
+
   if (is_array($tids)) {
-    $result = db_query("SELECT n.nid FROM taxonomy_index ti 
+    $result = db_query("SELECT n.nid FROM taxonomy_index ti
     JOIN node n ON n.nid = ti.nid WHERE ti.tid IN (:tids) AND n.status = 1 ORDER BY n.title ASC",  array(':tids' => join(", ", $tids)));
   }
   else {
-    $result = db_query("SELECT n.nid FROM taxonomy_index ti 
-    JOIN node n ON n.nid = ti.nid WHERE ti.tid = :tid AND n.status = 1 ORDER BY n.title ASC", 
+    $result = db_query("SELECT n.nid FROM taxonomy_index ti
+    JOIN node n ON n.nid = ti.nid WHERE ti.tid = :tid AND n.status = 1 ORDER BY n.title ASC",
     array(':tid' => $tids));
   }
   foreach ($result as $record) {
     if (!in_array($record->nid, $nids)) {
       $nids[] = $record->nid;
       $temp_node = node_load($record->nid);
-      if ($temp_node->type != "contact") {        
+      if ($temp_node->type != "contact") {
         $nodes[] = $temp_node;
       }
     }
@@ -394,7 +425,7 @@ function _dlaw_dashboard_get_nodes_by_tid($tids) {
 
 function dlaw_format_date($timestamp) {
   if (empty($timestamp)) return '';
-  
+
   $interval = REQUEST_TIME - $timestamp;
 
   // Display date if more than 7 days
@@ -489,5 +520,5 @@ function _library_truncate($text, $length = 100, $removetags = array(), $ending 
       $truncate .= '</' . $tag . '>';
     }
   }
-  return $truncate;   
+  return $truncate;
 }

@@ -96,13 +96,13 @@ function page_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '14',
+          'weight' => '13',
         ),
         'metatags' => array(
           'weight' => '18',
         ),
         'redirect' => array(
-          'weight' => '18',
+          'weight' => '17',
         ),
         'twitter' => array(
           'weight' => '1',

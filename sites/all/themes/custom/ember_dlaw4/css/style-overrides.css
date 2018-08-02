@@ -410,6 +410,36 @@ select.ui-datepicker-year {
   font-weight: normal;
   font-size: 0.93em; }
 
+.vertical-tabs-panes .form-item-unpublish-on > label {
+  display: block; }
+
+.category-icon-list {
+  margin: 20px 0 30px; }
+  .category-icon-list button {
+    background-color: #f6f6f6;
+    margin-right: 4px;
+    margin-bottom: 8px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center; }
+    .category-icon-list button:hover {
+      background-color: #ddd; }
+    .category-icon-list button img {
+      margin: 6px auto 3px;
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+
+@keyframes yellowfade {
+  from {
+    background: yellow; }
+  to {
+    background: transparent; } }
+#edit-field-category-icon input.yellow-fade {
+  animation: yellowfade 1s; }
+
+.vertical-tabs-pane #edit-field-region-und, .vertical-tabs-pane #edit-field-zipcode-und {
+  min-height: 500px; }
+
 @media (min-width: 1401px) {
   #dashboard div.block ul.ga_site_usage_list {
     padding: 0 0%; }

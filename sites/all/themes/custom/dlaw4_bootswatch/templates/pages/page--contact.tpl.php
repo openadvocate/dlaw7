@@ -144,22 +144,22 @@
 
       if (module_exists('dlawsettings_site_info')) {
         $logo_url = dlawsettings_site_info_theme_logo();
-        
-         if (!empty($logo_url)) {           
+
+         if (!empty($logo_url)) {
             $img_src1 = file_create_url($logo_url);
             $logo_image = '<img src="' . $img_src1 . '" border="0" alt="' . check_plain($site_name) . '">';
 
             $linked_logo_img = l($logo_image, '<front>', array('html' => TRUE));
          }else $logo_url = FALSE;
-        
+
       }
       else $logo_url = FALSE;
-    ?>        
+    ?>
 
     <div>
       <?php if ( !empty($linked_banner_img) || !empty($linked_logo_img) || !empty($site_name) || !empty($site_slogan)): ?>
       <div class="branding-data clearfix row logo">
-          <?php if ($linked_banner_img): ?>     
+          <?php if ($linked_banner_img): ?>
                <div class="banner-img col-sm-12">
                 <?php print $linked_banner_img; ?>
               </div>
@@ -189,7 +189,7 @@
                         <p class="site-slogan lead<?php //print $class; ?>"><?php print strip_tags($site_slogan); ?></p>
                       <?php endif; ?>
 
-                      <div class="print-only site-link">                        
+                      <div class="print-only site-link">
                         <?php echo "$_SERVER[HTTP_HOST]"; ?>
                       </div>
 
@@ -201,10 +201,10 @@
 
           <?php if (module_exists('quarkfield')): ?>
             <div id="qr-print-link" class="text-right">
-              <?php 
+              <?php
                 $block = module_invoke('quarkfield', 'block_view', 'qr_code');
                 print render($block['content']);
-              ?>              
+              ?>
             </div>
           <?php endif ?>
 
@@ -215,7 +215,7 @@
 
     <?php if (!empty($page['header'])): ?>
       <div class="header-banner visible-desktop" role="banner" id="page-header">
-        <?php print render($page['header']); ?>        
+        <?php print render($page['header']); ?>
       </div>
     <?php endif; ?>
 
@@ -281,7 +281,7 @@
 <div class="text-center">
   <h2 class="mission">
     <?php if (!empty($mission)): ?>
-      <?php print $mission; ?>      
+      <?php print $mission; ?>
     <?php endif ?>
   </h2>
 </div>
@@ -296,7 +296,7 @@
     <?php //endif; ?>
 
     <?php if ($is_front): ?> <!-- Front page Test-->
-    
+
       <?php if (!empty($page['front_col1'])): ?>
         <div class="<?php print $dlaw4_col_class; ?>"><?php print render($page['front_col1']); ?></div>
       <?php endif; ?>
@@ -310,8 +310,8 @@
     <?php endif; ?>
 
     <section <?php //print $content_column_class; ?>>
-    
-      
+
+
       <a id="main-content"></a>
 
 
@@ -322,9 +322,9 @@
         <!-- </div> -->
       <?php // endif ?>
 
-    
+
       <?php $title_class = "" ?>
-      <?php if (!empty($library_listing)): ?>  
+      <?php if (!empty($library_listing)): ?>
         <?php $title_class = "library_list_title" ?>
         <div class="small">
           <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
@@ -362,7 +362,7 @@
   </div>
 </div>
 
-<?php if (!empty($page['footer'])): ?>  
+<?php if (!empty($page['footer'])): ?>
   <div id="bottom-region" class="well roow">
     <div class="container">
       <?php print render($page['footer']); ?>
@@ -373,7 +373,7 @@
 <footer id="footer-region" class="footer navbar-default">
   <div class="container text-center">
     <div class="spacer-8">
-      <?php       
+      <?php
         print render($my_custom_footer_menu);
       ?>
     </div>
@@ -382,6 +382,6 @@
       <?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?></br></br>
     </div>
     <div class="spacer-8"><?php print $site_copyright_info; ?></div>
-    <div class="spacer-8 powered-by">Powered by <a href="http://www.openadvocate.org/">OpenAdvocate</a></div>
+    <div class="spacer-8 powered-by">Website powered by <a href="http://www.openadvocate.org/">OpenAdvocate</a></div>
   </div>
 </footer>

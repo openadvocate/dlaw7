@@ -13,7 +13,7 @@ function page_content_type_taxonomy_default_vocabularies() {
       'name' => 'Topics',
       'machine_name' => 'category',
       'description' => '',
-      'hierarchy' => 0,
+      'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,
       'rdf_mapping' => array(
@@ -35,6 +35,29 @@ function page_content_type_taxonomy_default_vocabularies() {
     'language' => array(
       'name' => 'Language',
       'machine_name' => 'language',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
+    'region' => array(
+      'name' => 'Region',
+      'machine_name' => 'region',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',

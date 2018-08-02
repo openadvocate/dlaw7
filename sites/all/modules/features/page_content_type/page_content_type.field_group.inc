@@ -21,7 +21,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Attachments',
-    'weight' => '16',
+    'weight' => '15',
     'children' => array(
       0 => 'field_attachments',
     ),
@@ -48,7 +48,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Event',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_date',
       1 => 'field_location',
@@ -77,7 +77,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Feature Image',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_image',
     ),
@@ -105,7 +105,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Glossary',
-    'weight' => '13',
+    'weight' => '12',
     'children' => array(
       0 => 'field_page_glossary',
     ),
@@ -125,6 +125,35 @@ function page_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_icon|taxonomy_term|category|form';
+  $field_group->group_name = 'group_icon';
+  $field_group->entity_type = 'taxonomy_term';
+  $field_group->bundle = 'category';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Icon',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_category_icon',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Icon',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-icon field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsible',
+    ),
+  );
+  $field_groups['group_icon|taxonomy_term|category|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_images|node|page|form';
   $field_group->group_name = 'group_images';
   $field_group->entity_type = 'node';
@@ -133,7 +162,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_images',
     ),
@@ -161,7 +190,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Language',
-    'weight' => '12',
+    'weight' => '11',
     'children' => array(
       0 => 'field_language',
     ),
@@ -188,7 +217,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Topics',
-    'weight' => '9',
+    'weight' => '7',
     'children' => array(
       0 => 'field_category',
     ),
@@ -216,7 +245,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Links',
-    'weight' => '15',
+    'weight' => '14',
     'children' => array(
       0 => 'field_links',
     ),
@@ -243,7 +272,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'News',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_news',
     ),
@@ -262,6 +291,33 @@ function page_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_region|node|page|form';
+  $field_group->group_name = 'group_region';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Region',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_region',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-region field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_region|node|page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_section|node|page|form';
   $field_group->group_name = 'group_section';
   $field_group->entity_type = 'node';
@@ -270,7 +326,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Section',
-    'weight' => '8',
+    'weight' => '6',
     'children' => array(
       0 => 'field_section',
     ),
@@ -298,7 +354,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Tags',
-    'weight' => '10',
+    'weight' => '8',
     'children' => array(
       0 => 'field_tags',
     ),
@@ -325,7 +381,7 @@ function page_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Zip Code',
-    'weight' => '11',
+    'weight' => '10',
     'children' => array(
       0 => 'field_zipcode',
     ),
@@ -347,10 +403,12 @@ function page_content_type_field_group_info() {
   t('Event');
   t('Feature Image');
   t('Glossary');
+  t('Icon');
   t('Images');
   t('Language');
   t('Links');
   t('News');
+  t('Region');
   t('Section');
   t('Tags');
   t('Topics');

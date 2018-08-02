@@ -58,7 +58,7 @@ function page_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -125,7 +125,7 @@ function page_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_mfw',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -714,6 +714,50 @@ function page_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-page-field_region'.
+  $field_instances['node-page-field_region'] = array(
+    'bundle' => 'page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 18,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_region',
+    'label' => 'Region',
+    'required' => 0,
+    'selectoradd' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'node-page-field_section'.
   $field_instances['node-page-field_section'] = array(
     'bundle' => 'page',
@@ -725,6 +769,7 @@ function page_content_type_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -874,7 +919,7 @@ function page_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 17,
+      'weight' => 16,
     ),
   );
 
@@ -918,7 +963,41 @@ function page_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-category-field_category_icon'.
+  $field_instances['taxonomy_term-category-field_category_icon'] = array(
+    'bundle' => 'category',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_category_icon',
+    'label' => 'Icon URL',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 6,
     ),
   );
 
@@ -930,12 +1009,14 @@ function page_content_type_field_default_field_instances() {
   t('Date');
   t('For images use Images section (below content editor) or Feature Image section.');
   t('Glossary');
+  t('Icon URL');
   t('Image');
   t('Images');
   t('Language');
   t('Links');
   t('Location');
   t('News');
+  t('Region');
   t('Start typing the title of pages.');
   t('Tags');
   t('Topics');

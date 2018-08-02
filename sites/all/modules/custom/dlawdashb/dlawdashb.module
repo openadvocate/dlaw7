@@ -15,9 +15,9 @@ function dlawdashb_menu() {
   );
 
   $items['admin/dashboard/settings/categories'] = array(
-    'title' => 'Categories', 
+    'title' => 'Categories',
     'description' => 'DLAW Dashboard - Categories',
-    'page callback' => 'drupal_get_form', 
+    'page callback' => 'drupal_get_form',
     'page arguments' => array('taxonomy_overview_vocabularies'),
     'access arguments' => array('administer taxonomy'),
     'weight' => 2,
@@ -27,10 +27,10 @@ function dlawdashb_menu() {
   );
 
   $items['admin/dashboard/users'] = array(
-    'title' => 'Users', 
+    'title' => 'Users',
     'description' => 'DLAW Dashboard - User Management)',
-    'page callback' => 'dlawdashb_user_admin', 
-    'access arguments' => array('administer users'), 
+    'page callback' => 'dlawdashb_user_admin',
+    'access arguments' => array('administer users'),
     'weight' => 14,
     'type' => MENU_LOCAL_TASK,
   );
@@ -44,7 +44,7 @@ function dlawdashb_menu() {
 function dlawdashb_permission() {
   return array(
     'access dlaw dashboard' => array(
-      'title' => t('Access DLAW Dashboard'), 
+      'title' => t('Access DLAW Dashboard'),
       'description' => t(''),
     ),
   );
@@ -100,9 +100,14 @@ function dlawdashb_taxonomy_overview_vocabularies($variables) {
         $vocabulary['weight']['#attributes']['class'] = array('vocabulary-weight');
         $row[] = drupal_render($vocabulary['weight']);
       }
+
       if ($show_edit_column) {
         $row[] = drupal_render($vocabulary['edit']);
       }
+      else {
+        hide($vocabulary['edit']);
+      }
+
       $row[] = drupal_render($vocabulary['list']);
       $row[] = drupal_render($vocabulary['add']);
       $rows[] = array('data' => $row, 'class' => array('draggable'));
@@ -114,7 +119,7 @@ function dlawdashb_taxonomy_overview_vocabularies($variables) {
     $header[] = t('Weight');
     drupal_add_tabledrag('taxonomy', 'order', 'sibling', 'vocabulary-weight');
   }
-  
+
   $colspan = $show_edit_column ? '3' : '2';
   $header[] = array('data' => t('Operations'), 'colspan' => $colspan);
   return theme('table', array('header' => $header, 'rows' => $rows, 'empty' => t('No vocabularies available. <a href="@link">Add vocabulary</a>.', array('@link' => url('admin/structure/taxonomy/add'))), 'attributes' => array('id' => 'taxonomy'))) . drupal_render_children($form);
@@ -125,7 +130,7 @@ function dlawdashb_taxonomy_overview_vocabularies($variables) {
  */
 function dlawdashb_user_admin() {
   module_load_include('inc', 'user', 'user.admin');
-  
+
   $build['user_filter_form']   = drupal_get_form('user_filter_form');
   $build['user_admin_account'] = drupal_get_form('user_admin_account');
 
@@ -140,7 +145,7 @@ function dlawdashb_user_admin() {
                    'query' => drupal_get_destination(),
                    'attributes' => array('class' => array('action-item-primary')))),
   );
-  
+
   return $build;
 }
 
@@ -202,7 +207,7 @@ EOD;
     );
 
     $add_contact = l(
-      '<i class="fa fa-user"></i> Add Contact',      
+      '<i class="fa fa-user"></i> Add Contact',
       "node/add/contact",
       array('query' => drupal_get_destination(),
         'attributes' => array('class' => array('btn', 'btn-success', 'btn-lg', 'add_contact')),
@@ -337,6 +342,9 @@ function dlawdashb_website_summary_block() {
   $value = db_query($sql, array(':name' => 'tags'))->fetchField();
   $data[] = array($value, l('Tags', 'admin/structure/taxonomy/tags'));
 
+  $value = db_query($sql, array(':name' => 'region'))->fetchField();
+  $data[] = array($value, l('Regions', 'admin/structure/taxonomy/region'));
+
   $value = db_query($sql, array(':name' => 'zipcode'))->fetchField();
   $data[] = array($value, l('ZIP Codes', 'admin/structure/taxonomy/zipcode'));
 
@@ -396,38 +404,38 @@ function dlawdashb_site_summary() {
     'class' => $item_classes,
   );
   // News
-  
+
   $list[] = array(
     'data' => $wrapper . 'News' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(*) FROM field_data_field_news WHERE field_news_value = 1")->fetchField() . $num_wrapper_end,
     'class' => $item_classes,
   );
   // Events
-  
+
   $list[] = array(
     'data' => $wrapper . 'Events' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(*) FROM field_data_field_date WHERE delta = 0")->fetchField() . $num_wrapper_end,
     'class' => $item_classes,
   );
   // Contacts
-  
+
   $list[] = array(
     'data' => $wrapper . 'Contacts' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(*) FROM node WHERE type = 'contact'")->fetchField() . $num_wrapper_end,
     'class' => $item_classes,
   );
   // Files
-  
+
   $list[] = array(
     'data' => $wrapper . 'Files' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(*) FROM file_managed WHERE type <> 'image'")->fetchField() . $num_wrapper_end,
     'class' => $item_classes,
   );
   // Images
-  
+
   $list[] = array(
     'data' => $wrapper . 'Images' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(*) FROM file_managed WHERE type = 'image'")->fetchField() . $num_wrapper_end,
     'class' => $item_classes,
   );
 
   // Categories
-  
+
   $list[] = array(
     'data' => $wrapper . 'Topics' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(td.tid) FROM taxonomy_term_data td JOIN taxonomy_vocabulary vo ON td.vid = vo.vid
     WHERE vo.machine_name = :name", array(':name' => 'category'))->fetchField() . $num_wrapper_end,
@@ -435,7 +443,7 @@ function dlawdashb_site_summary() {
   );
 
   // Tags
-   
+
   $list[] = array(
     'data' => $wrapper . 'Tags' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(td.tid) FROM taxonomy_term_data td JOIN taxonomy_vocabulary vo ON td.vid = vo.vid
     WHERE vo.machine_name = :name", array(':name' => 'tags'))->fetchField() . $num_wrapper_end,
@@ -443,7 +451,7 @@ function dlawdashb_site_summary() {
   );
 
   // ZIP
-   
+
   $list[] = array(
     'data' => $wrapper . 'ZIP' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(td.tid) FROM taxonomy_term_data td JOIN taxonomy_vocabulary vo ON td.vid = vo.vid
     WHERE vo.machine_name = :name", array(':name' => 'zipcode'))->fetchField() . $num_wrapper_end,
@@ -451,7 +459,7 @@ function dlawdashb_site_summary() {
   );
 
   // Languages
-   
+
   $list[] = array(
     'data' => $wrapper . 'Languages' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(td.tid) FROM taxonomy_term_data td JOIN taxonomy_vocabulary vo ON td.vid = vo.vid
     WHERE vo.machine_name = :name", array(':name' => 'language'))->fetchField() . $num_wrapper_end,
@@ -459,7 +467,7 @@ function dlawdashb_site_summary() {
   );
 
   // Managers
-   
+
   $list[] = array(
     'data' => $wrapper . 'Managers' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(u.uid) FROM users u JOIN users_roles ur ON u.uid = ur.uid
     JOIN role r ON ur.rid = r.rid
@@ -468,7 +476,7 @@ function dlawdashb_site_summary() {
   );
 
   // Editors
-   
+
   $list[] = array(
     'data' => $wrapper . 'Editors' . $wrapper_end . $num_wrapper . db_query("SELECT COUNT(u.uid) FROM users u JOIN users_roles ur ON u.uid = ur.uid
     JOIN role r ON ur.rid = r.rid
@@ -578,23 +586,145 @@ function dlawdashb_admin_menu_output_alter(&$content) {
 
 /**
  * Implements hook_form_FORM_ID_alter().
- * Case 41813: Hide clutters on term edit page.
  */
 function dlawdashb_form_taxonomy_form_term_alter(&$form, $form_state) {
   global $user;
 
+  // Case 41813: Quickly hide clutters on term edit page as some elements are
+  // not as easy to manipulate via $form variable.
   if ($user->uid > 1) {
-    $js = <<<EOD
-(function ($) {
-  $(function() {
-    $('.text-format-wrapper').hide();
-    $('#edit-relations').hide();
-    $('#edit-path').hide();
-    $('#edit-metatags').hide();
-  });
-})(jQuery);
+    if ($form['#vocabulary']->machine_name == 'category') {
+      $js = <<<EOD
+        (function ($) {
+          $(function() {
+            $('#edit-description-format').hide();
+            $('#edit-relations').hide();
+            $('#edit-path').hide();
+            $('#edit-metatags').hide();
+            $('#edit-redirect').hide();
+          });
+        })(jQuery);
 EOD;
+    }
+    else {
+      $js = <<<EOD
+        (function ($) {
+          $(function() {
+            $('.text-format-wrapper').hide();
+            $('#edit-relations').hide();
+            $('#edit-path').hide();
+            $('#edit-metatags').hide();
+            $('#edit-redirect').hide();
+          });
+        })(jQuery);
+EOD;
+    }
 
     drupal_add_js($js, array('type' => 'inline'));
+  }
+
+  // Icon field for Topics (category).
+  if ($form['#vocabulary']->machine_name == 'category') {
+    $icons = '';
+    if ($list = dlawdashb_get_category_icon_list()) {
+      foreach ($list as $url) {
+        $caption = '';
+        if (preg_match('#/([^/]+)-filled\.png$#', $url, $match)) {
+          $caption = $match[1];
+          $caption = str_replace('-', ' ', $caption);
+          $caption = ucfirst($caption);
+        }
+        $icons .= <<<OUT
+          <button type="button">
+            <img src="{$url}" width="50">
+            {$caption}
+          </button>
+OUT;
+      }
+    }
+
+    $form['field_category_icon']['#suffix'] = <<<OUT
+      <fieldset class="category-icon-list">
+        <legend>Choose from popular icons:</legend>
+        {$icons}
+      </fieldset>
+      <fieldset class="category-icon-instruction">
+        <legend>Or find an icon yourself at icons8.com:</legend>
+        <ol>
+          <li>Go to <a href="https://icons8.com/icon/new-icons/ios" target="_blank">https://icons8.com/icon/new-icons/ios</a></li>
+          <li>Search with keywords.</li>
+          <li>Click on the icon (only filled icons are accepted).</li>
+          <li>On the right side bar, click on "Generate HTML".</li>
+          <li>Click on PNG CDN.</li>
+          <li>From the HTML code, copy the image URL (src).
+            <ul>
+              <li>The URL should look something like https://png.icons8.com/ios/100/000000/law-filled.png</li>
+              <li>Note the image URL indicates iOS style and filled.</li>
+            </ul>
+          <li>Paste the URL to the textbox above.</li>
+        </ol>
+      </fieldset>
+OUT;
+
+    $form['#attached']['js'][] = drupal_get_path('module', 'dlawdashb') . '/dlawdashb.js';
+    $form['#validate'][] = 'dlawdashb_form_taxonomy_form_term_validate';
+  }
+}
+
+function dlawdashb_form_taxonomy_form_term_validate(&$form, &$form_state) {
+  $values = &$form_state['values'];
+
+  if (!empty($values['field_category_icon'][LANGUAGE_NONE][0]['value'])) {
+    $url = $values['field_category_icon'][LANGUAGE_NONE][0]['value'];
+
+    if (preg_match('#src="([^"]+)"#', $url, $match)) {
+      $url = $match[1];
+    }
+
+    if (!preg_match('#^https:\/\/.+icons8.com\/ios\/.+-filled.png$#', $url)) {
+      form_set_error('field_category_icon', 'The icon URL should be from icons8.com, iOS style with Fill mode. Example) https://png.icons8.com/ios/50/000000/babys-room-filled.png');
+      return;
+    }
+
+    // Use 100px version of image.
+    $url = preg_replace('#.com\/ios\/\d+\/#', '.com/ios/100/', $url);
+    $result = drupal_http_request($url, array(), 'HEAD');
+
+    if ($result->code == 200) {
+      $values['field_category_icon'][LANGUAGE_NONE][0]['value'] = $url;
+      dlawdashb_set_category_icon_list($url);
+      drupal_set_message("<img src=\"{$url}\" height=\"50\" width=\"50\" style=\"opacity:0.5; filter:alpha(opacity=50)\"> This icon will be used for the term.");
+    }
+    else {
+      form_set_error('field_category_icon', 'The icon URL is not valid. Please check again.');
+    }
+  }
+}
+
+function dlawdashb_get_category_icon_list() {
+  $shared_files_dir = 'sites/default/files';
+  file_prepare_directory($shared_files_dir, FILE_CREATE_DIRECTORY);
+
+  $path = $shared_files_dir . '/_category-icon-list-cache.txt';
+
+  $list = array();
+  if ($abs_path = realpath($path)) {
+    $list = file($abs_path, FILE_IGNORE_NEW_LINES);
+  }
+
+  return $list;
+}
+
+function dlawdashb_set_category_icon_list($url) {
+  $list = dlawdashb_get_category_icon_list();
+
+  if (!in_array($url, $list)) {
+    $list[] = $url;
+    array_filter($list);
+    file_unmanaged_save_data(
+      join("\n", $list),
+      'sites/default/files/_category-icon-list-cache.txt',
+      FILE_EXISTS_REPLACE
+    );
   }
 }
