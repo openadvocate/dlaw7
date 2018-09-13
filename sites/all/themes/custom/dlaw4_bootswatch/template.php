@@ -344,12 +344,15 @@ function _dlaw4_add_structured_data_type($type, $node, $fields) {
     if (!empty($node->body['und'][0]['summary'])) {
       $sd['description'] = $node->body['und'][0]['summary'];
     }
-    else {
+    elseif (!empty($node->body['und'][0]['value'])) {
       $body = $node->body['und'][0]['value'];
       $body = str_replace('&nbsp;', '', $body);
       $body = preg_replace('#\s\s+#', ' ', $body);
 
       $sd['description'] = text_summary(strip_tags($body));
+    }
+    else {
+      $sd['description'] = '';
     }
   }
 

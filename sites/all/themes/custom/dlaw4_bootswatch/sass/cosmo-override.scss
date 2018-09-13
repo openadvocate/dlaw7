@@ -43,7 +43,7 @@ $linkcolor: #007fff;
 }
 
 a:visited{
-  color: darken($linkcolor, 10%);
+  color: red !important;
 }
 
 .well{

@@ -14,7 +14,7 @@ a:hover {
   color: #990000; }
 
 a:visited {
-  color: #990000; }
+  color: #990000 !important; }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:link,

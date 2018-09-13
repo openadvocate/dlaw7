@@ -151,7 +151,7 @@ function solr_search_panel_menu_alter(&$items) {
 function solr_search_panel_facet_items_alter(&$build, &$settings) {
   // Change item label "Display in News List" => "News"
   if ($settings->facet == 'im_field_news') {
-    if ($build[1]['#markup'] == 'Display in News List') {
+    if (isset($build[1]) and $build[1]['#markup'] == 'Display in News List') {
       $build[1]['#markup'] = 'News';
     }
   }

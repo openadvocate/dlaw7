@@ -29,6 +29,11 @@ function dlaw4_basic_page_block_view($delta = '') {
 }
 
 function dlaw4_basic_page_event_dates_block() {
+  $am_pm = array("am", "pm");
+  $am_pm_ = array(" a.m.", " p.m.");
+
+  $date_ = "";
+  $time_ = "";
   if ($node = menu_get_object() and $node->type == 'page') {
     if (!empty($node->field_date)) {
       $next = array();
@@ -36,22 +41,30 @@ function dlaw4_basic_page_event_dates_block() {
         if (date('Ymd', $date['value']) >= date('Ymd') and empty($next[0])) {
           if (date('H', $date['value']) === '00') {
             $next[0] = date('l, F j, Y', $date['value']);
+            $date_ = date('l, F j, Y', $date['value']);
           }
           else {
             $next[0] = date('l, F j, Y - g:ia', $date['value']);
+            $date_ = date('l, F j, Y', $date['value']);
+            $time_ = date('g:ia', $date['value']);
           }
 
           if (!empty($date['value2']) and $date['value'] != $date['value2']) {
             $next[0] .= ' to ';
+            $time_ .= ' to ';
 
             if (date('Ymd', $date['value']) == date('Ymd', $date['value2'])) {
               $next[0] .= date('g:ia T', $date['value2']);
+              $time_ .= date('g:ia T', $date['value2']);
             }
             elseif (date('H', $date['value2']) === '00') {
               $next[0] .= date('l, F j, Y', $date['value2']);
+              $date_ .= date('l, F j, Y', $date['value2']);
             }
             else {
               $next[0] .= date('l, F j, Y - g:ia T', $date['value2']);
+              $date_ .= date('l, F j, Y', $date['value2']);
+              $time_ = date('g:ia T', $date['value']);
             }
           }
         }
@@ -65,7 +78,12 @@ function dlaw4_basic_page_event_dates_block() {
 
       $content = '';
       if (!empty($next[0])) {
-        $content = "<div class=\"lead\"><span style=\"color: #ccc\">Date:</span> {$next[0]}</div>";
+        // $content = "<div class=\"lead\"><span style=\"color: #ccc\">Date:</span> {$next[0]}</div>";
+        $content = "<div class=\"lead\"><span style=\"color: #555\">Date:</span> {$date_}</div>";
+        
+        if (!empty($time_)) {
+          $content .= "<div class=\"lead\"><span style=\"color: #555\">Time:</span> {$time_}</div>";
+        }
 
         $upcoming = '';
         if (!empty($next[1])) {
@@ -83,12 +101,12 @@ function dlaw4_basic_page_event_dates_block() {
 
       if (!empty($node->field_location['und'][0]['value'])) {
         $content .= '<div class="lead">'
-          . '<span style="color: #ccc">Location:</span> '
+          . '<span style="color: #555">Location:</span> '
           . check_plain($node->field_location['und'][0]['value'])
           . '</div>';
       }
 
-      return array('subject' => '', 'content' => $content);
+      return array('subject' => '', 'content' => str_replace( $am_pm, $am_pm_, $content));
     }
   }
 }

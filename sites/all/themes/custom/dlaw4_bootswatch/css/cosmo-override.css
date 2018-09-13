@@ -20,7 +20,7 @@
     text-decoration: underline; }
 
 a:visited {
-  color: #0066cc; }
+  color: red !important; }
 
 .well {
   background: #fdfdfd; }

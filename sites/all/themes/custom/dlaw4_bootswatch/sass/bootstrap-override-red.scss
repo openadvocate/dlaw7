@@ -24,7 +24,7 @@ a:hover{
   color: darken($linkcolor, 10%);
 }
 a:visited{
-  color: darken($linkcolor, 10%);
+  color: darken($linkcolor, 10%) !important;
 }
 // --------------------------------------------- Navigation Overrides
 .navbar-default .navbar-nav > .active > a,

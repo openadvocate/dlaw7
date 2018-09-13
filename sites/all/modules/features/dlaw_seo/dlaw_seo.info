@@ -1,7 +1,7 @@
 name = DLAW SEO
 core = 7.x
 package = Features
-version = 7.x-0.3
+version = 7.x-0.4
 dependencies[] = features
 dependencies[] = redirect
 features[features_api][] = api:2

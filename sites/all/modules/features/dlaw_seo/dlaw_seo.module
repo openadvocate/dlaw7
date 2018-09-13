@@ -5,6 +5,21 @@
  */
 
 /**
+ * Implements hook_cron().
+ *
+ * sitemap.xml by xmlsitemap seems to get corrupted over time. This forces
+ * site map to be regenerated on a regular basis. Current minimum lifetime will
+ * run it once a day.
+ */
+function dlaw_seo_cron() {
+  $lifetime = REQUEST_TIME - variable_get('xmlsitemap_generated_last', 0);
+
+  if ($lifetime > 86400) {
+    variable_set('xmlsitemap_regenerate_needed', TRUE);
+  }
+}
+
+/**
  * Implements hook_menu_alter().
  *
  * Hide redirect settings page.

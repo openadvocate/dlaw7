@@ -1,5 +1,20 @@
+#dashboard .block-dashboardga, #dashboard .block-dlawdashb {
+  background: white;
+  border: 1px solid #ddd !important;
+  padding: 15px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075); }
+  #dashboard .block-dashboardga h2, #dashboard .block-dlawdashb h2 {
+    padding-bottom: 15px !important; }
+#dashboard #block-dlawdashb-add-content {
+  background: transparent;
+  border: none !important;
+  padding: 0;
+  box-shadow: none; }
+#dashboard #block-dashboardga-dashboardga-ga > h2:first-child {
+  display: none; }
+
 body {
-  background: url("../images/content-inner.png") repeat scroll 0 0 #FAFAFA; }
+  background: #fafaf8; }
 
 #admin-menu-menu a.event-blog-link {
   display: none; }
@@ -129,12 +144,12 @@ input[type="radio"], input[type="checkbox"] {
       padding-right: 8px;
       font-size: 20px; }
   #dashboard div.block .content .ga_list_title {
-    margin-top: 23px;
+    margin-top: -10px;
     margin-bottom: 10px;
     width: 100%;
     max-width: 100%; }
     #dashboard div.block .content .ga_list_title.last_30 {
-      padding-top: 0px; }
+      padding-top: 30px; }
   #dashboard div.block .content .most_visited {
     padding-bottom: 10px; }
   #dashboard div.block ul.ga_site_usage_list {
@@ -162,8 +177,7 @@ input[type="radio"], input[type="checkbox"] {
         border: none; }
   #dashboard div.block ul.ga_list, #dashboard div.block ol.ga_list {
     margin-left: 0px;
-    margin-bottom: 0px;
-    border-top: 1px solid #ccc; }
+    margin-bottom: 0px; }
     #dashboard div.block ul.ga_list li, #dashboard div.block ol.ga_list li {
       max-width: 100%;
       margin: 0;
@@ -181,6 +195,8 @@ input[type="radio"], input[type="checkbox"] {
     #dashboard div.block ul.ga_list.ga_most_visited_list li, #dashboard div.block ol.ga_list.ga_most_visited_list li {
       padding: 16px 6px;
       border-top: 1px solid #ddd; }
+      #dashboard div.block ul.ga_list.ga_most_visited_list li.first, #dashboard div.block ol.ga_list.ga_most_visited_list li.first {
+        border-top: none; }
     #dashboard div.block ul.ga_list li:nth-child(2n+1), #dashboard div.block ol.ga_list li:nth-child(2n+1) {
       background: #fff; }
       #dashboard div.block ul.ga_list li:nth-child(2n+1):hover, #dashboard div.block ol.ga_list li:nth-child(2n+1):hover {
@@ -235,7 +251,7 @@ input[type="radio"], input[type="checkbox"] {
           top: 0;
           left: 0; }
   #dashboard div.block table.ga_list {
-    margin: 5px 25px 36px;
+    margin: 5px 0px 40px;
     border-top: 1px solid #ccc;
     font-size: 1.1em; }
     #dashboard div.block table.ga_list th {
